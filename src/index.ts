@@ -12,19 +12,19 @@ export const updateSelectedServices = (
         return previouslySelectedServices;
       }
 
-      if (
-        action.service === "BlurayPackage" &&
-        !previouslySelectedServices.includes("VideoRecording")
-      ) {
+      const videoRecordingSelected =
+        previouslySelectedServices.includes("VideoRecording");
+
+      if (action.service === "BlurayPackage" && !videoRecordingSelected) {
         return previouslySelectedServices;
       }
 
+      const photographySelected =
+        previouslySelectedServices.includes("Photography");
+
       if (
         action.service === "TwoDayEvent" &&
-        !(
-          previouslySelectedServices.includes("Photography") ||
-          previouslySelectedServices.includes("VideoRecording")
-        )
+        !(photographySelected || videoRecordingSelected)
       ) {
         return previouslySelectedServices;
       }
@@ -60,14 +60,14 @@ export const calculatePrice = (
   selectedYear: ServiceYear
 ) => {
   const pricing: IPricing = pricingData[selectedYear];
-  let basePrice: number = 0;
 
+  let basePrice: number = 0;
   for (const selectedService of selectedServices) {
     basePrice += pricing.basePrices[selectedService];
   }
 
-  let discountAppliedForServices: ServiceType[] = [];
   let finalPrice: number = basePrice;
+  let discountAppliedForServices: ServiceType[] = [];
   for (const discount of pricing.discounts) {
     if (
       discountAppliedForServices.some((service) =>

@@ -6,3 +6,5 @@ I've tried to keep the solution simple yet scalable. My main goal was to make ad
 2. If discounts have gotten complicated and there would be multiple product packs reusing the same products, my solution would obviously break. In such scenarios we should consider all possible discount scenarios and choose the most beneficial one. That would complicate things and I don't think it was a part of the task, still thought I'd mention it.
 
 I'd also like to mention that `updateSelectedServices` implementation could technically be achieved with some more abstraction of those various checks/rules. However, I think it's important to consider if such abstraction is worth the effort. Currently, I think not. If there were more cases to consider in the future, I'd refactor that part.§
+
+PS: I've used Prettier for formatting.
